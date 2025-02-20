@@ -12,11 +12,16 @@ class ChirpController extends Controller
      */
     public function index()
     {
+        //$chirps = Chirp::latest();
 
-        //get data 
+        //dd($chirps);
 
-        // if user auth
-        return view("chirps.index");
+        $chirps = Chirp::with('user')->latest()->paginate(3); //select * from `chirps` order by `created_at` desc
+                  //Chirp::with('user')->latest()->get()
+
+        //dd($chirps);
+
+        return view("chirps.index", ["chirps"=>$chirps] );
     }
 
     /**
